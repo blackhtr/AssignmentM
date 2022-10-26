@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.item_main_holder.view.*
 class StyleAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
     private val mContext = context
     private var mData:MutableList<StyleDTO> = mutableListOf()
+    private var showLine:Int = 2
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data : List<StyleDTO>?){
@@ -24,7 +25,7 @@ class StyleAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
         data?.run { mData.addAll(this) }
         notifyDataSetChanged()
     }
-    override fun getItemCount(): Int = mData.size
+    override fun getItemCount(): Int = if(showLine*2 < mData.size) showLine*2 else mData.size
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = StyleViewHolder(parent).apply { setClickListener(this) }
     private fun setClickListener(holder:StyleViewHolder){
 

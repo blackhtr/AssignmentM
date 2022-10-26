@@ -17,9 +17,11 @@ import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class GoodsAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
+class GoodsAdapter(context:Context, type:String): RecyclerView.Adapter<ViewHolder>() {
     private val mContext = context
+    private val mType = type
     private var mData:MutableList<GoodsDTO> = mutableListOf()
+    private var showLine:Int = 2
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data : List<GoodsDTO>?){
@@ -27,7 +29,13 @@ class GoodsAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
         data?.run { mData.addAll(this) }
         notifyDataSetChanged()
     }
-    override fun getItemCount(): Int = mData.size
+    override fun getItemCount(): Int = when(mType){
+        MainHolderManager.TYPE_GRID -> if(showLine*3 < mData.size) showLine*3 else mData.size
+        else -> mData.size
+    }
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = GoodsViewHolder(parent).apply { setClickListener(this) }
     private fun setClickListener(holder:GoodsViewHolder){
 

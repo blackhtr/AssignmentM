@@ -12,7 +12,7 @@ import com.blackhtr.musinsaassignment.data.FooterDTO
 import com.blackhtr.musinsaassignment.data.HeaderDTO
 
 object MainHolderManager {
-    private const val TYPE_GRID     = "GRID"
+    const val TYPE_GRID     = "GRID"
     private const val TYPE_SCROLL   = "SCROLL"
     private const val TYPE_BANNER   = "BANNER"
     private const val TYPE_STYLE    = "STYLE"
@@ -65,11 +65,11 @@ object MainHolderManager {
                     when(contentsData.type){
                         TYPE_GRID -> {
                             layoutManager = GridLayoutManager(context, 3)
-                            adapter = GoodsAdapter(context).apply { setData(contentsData.goods) }
+                            adapter = GoodsAdapter(context, contentsData.type).apply { setData(contentsData.goods) }
                         }
                         TYPE_SCROLL ->{
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
-                            adapter = GoodsAdapter(context).apply { setData(contentsData.goods) }
+                            adapter = GoodsAdapter(context, contentsData.type).apply { setData(contentsData.goods) }
                         }
                         TYPE_BANNER -> {
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
