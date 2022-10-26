@@ -14,7 +14,7 @@ data class DataDTO(
 )
 
 data class HeaderDTO(
-    @SerializedName("title") val name:String?,
+    @SerializedName("title") val title:String?,
     @SerializedName("iconURL") val iconURL:String?,
     @SerializedName("linkURL") val linkURL:String? )
 

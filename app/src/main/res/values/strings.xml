@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MusinsaAssignment</string>
+    <string name="app_name">Musinsa 사전과제</string>
+
+    <string name="header_title_sample">타이틀</string>
+    <string name="header_all">전체</string>
+
 </resources>
