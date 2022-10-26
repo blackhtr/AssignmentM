@@ -5,24 +5,23 @@
     android:layout_height="48dp"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:background="@drawable/shape_gray_r30"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:paddingStart="20dp"
-        android:paddingEnd="20dp">
+        android:paddingEnd="20dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
         <ImageView
             android:id="@+id/ivFooterIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/tvFooterTitle"
-            android:layout_centerVertical="true"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginEnd="5dp"
             android:visibility="gone"/>
-
         <TextView
             android:id="@+id/tvFooterTitle"
             android:layout_width="wrap_content"
@@ -30,10 +29,11 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/header_title_sample"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="15dp"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
 </RelativeLayout>

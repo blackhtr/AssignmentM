@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             this.layoutManager = LinearLayoutManager(this@MainActivity).apply {
                 this.orientation = LinearLayoutManager.VERTICAL
             }
-            this.adapter = MainAdapter().apply { setData(mData?.dataList) }
+            this.adapter = MainAdapter(this@MainActivity).apply { setData(mData?.dataList) }
         }
 /*        mBinding?.rvMain?.run {
             this.layoutManager = LinearLayoutManager(this@MainActivity).apply {

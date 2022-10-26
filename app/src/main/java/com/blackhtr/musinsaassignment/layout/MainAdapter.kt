@@ -1,6 +1,7 @@
 package com.blackhtr.musinsaassignment.layout
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,8 @@ import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class MainAdapter: RecyclerView.Adapter<ViewHolder>() {
+class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
+    private val mContext = context
     private var mData:MutableList<DataDTO> = mutableListOf()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -32,22 +34,9 @@ class MainAdapter: RecyclerView.Adapter<ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(holder is MainViewHolder && 0 < position && position < mData.size){
-            val data:DataDTO = mData[position]
-            data.header.run {
-                holder.tvHeaderTitle.text = this?.title?: ""
-                holder.inHeader.visibility = if(null == this) View.GONE else View.VISIBLE
-
-            }
-            data.footer.run {
-                holder.tvFooterTitle.text = this?.title?: ""
-                holder.inFooter.visibility = if(null == this) View.GONE else View.VISIBLE
-            }
+            MainHolderManager.setHolderData(mContext, holder, mData[position])
         }
     }
-
-
-
-
 }
 
 class MainViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_main_holder, parent, false)){
