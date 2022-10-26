@@ -6,7 +6,6 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 
 interface RetrofitService {
-    @FormUrlEncoded
-    @GET("")
+    @GET("interview/list.json")
     fun getListData() : Call<DataDTO>
 }

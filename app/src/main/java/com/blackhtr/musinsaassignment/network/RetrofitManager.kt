@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitManager {
     companion object{
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://meta.musinsa.com/interview/list.json")
+            .baseUrl("https://meta.musinsa.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
