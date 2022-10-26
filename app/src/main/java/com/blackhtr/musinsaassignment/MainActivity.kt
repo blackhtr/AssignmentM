@@ -1,9 +1,9 @@
 package com.blackhtr.musinsaassignment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.blackhtr.musinsaassignment.data.DataDTO
+import androidx.appcompat.app.AppCompatActivity
+import com.blackhtr.musinsaassignment.data.DataListDTO
 import com.blackhtr.musinsaassignment.network.RetrofitManager
 import com.blackhtr.musinsaassignment.network.RetrofitService
 import retrofit2.Call
@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
 
         val service = RetrofitManager.retrofit.create<RetrofitService>()
 
-        service.getListData().enqueue(object :Callback<DataDTO>{
-            override fun onResponse(call: Call<DataDTO>, response: Response<DataDTO>) {
-                Log.i("TRHEO", "onResponse $response")
+        service.getListData().enqueue(object :Callback<DataListDTO>{
+            override fun onResponse(call: Call<DataListDTO>, response: Response<DataListDTO>) {
+                response.body()?.dataList?.get(0)?.contents?.type?.run {
+                    Log.i("TRHEO", "onResponse $this")
+                }
             }
-
-            override fun onFailure(call: Call<DataDTO>, t: Throwable) {
+            override fun onFailure(call: Call<DataListDTO>, t: Throwable) {
                 Log.i("TRHEO", "onFailure $t")
             }
 

@@ -19,7 +19,7 @@ data class HeaderDTO(
     @SerializedName("linkURL") val linkURL:String? )
 
 data class ContentsDTO(
-    @SerializedName("type") val name:String?,
+    @SerializedName("type") val type:String?,
     @SerializedName("banners") val banners:List<BannerDTO>?,
     @SerializedName("goods") val goods:List<GoodsDTO>?,
     @SerializedName("styles") val styles:List<StyleDTO>?,
@@ -44,7 +44,7 @@ data class GoodsDTO(
     @SerializedName("brandName") val brandName:String?,
     @SerializedName("price") val price:Int?,
     @SerializedName("saleRate") val saleRate:Int?,
-    @SerializedName("hasCoupon") val hasCoupon:Int?
+    @SerializedName("hasCoupon") val hasCoupon:Boolean?
 )
 data class StyleDTO(
     @SerializedName("linkURL") val linkURL:String?,
