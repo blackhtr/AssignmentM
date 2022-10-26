@@ -1,14 +1,30 @@
 package com.blackhtr.musinsaassignment.layout
 
 import android.content.Context
+import android.util.Log
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blackhtr.musinsaassignment.Glide.GlideApp
+import com.blackhtr.musinsaassignment.data.ContentsDTO
 import com.blackhtr.musinsaassignment.data.DataDTO
+import com.blackhtr.musinsaassignment.data.FooterDTO
+import com.blackhtr.musinsaassignment.data.HeaderDTO
 
 object MainHolderManager {
+    private const val TYPE_GRID     = "GRID"
+    private const val TYPE_SCROLL   = "SCROLL"
+    private const val TYPE_BANNER   = "BANNER"
+    private const val TYPE_STYLE    = "STYLE"
 
     fun setHolderData(context: Context, holder: MainViewHolder, data: DataDTO){
-        data.header.run {
+        setHeader(context, holder, data.header)
+        setContents(context, holder, data.contents)
+        setFooter(context, holder, data.footer)
+    }
+
+    private fun setHeader(context: Context, holder: MainViewHolder, headerData: HeaderDTO?){
+        headerData.run {
             if(null == this){
                 holder.inHeader.visibility = View.GONE
             }else{
@@ -23,9 +39,10 @@ object MainHolderManager {
                 }
             }
         }
+    }
 
-
-        data.footer.run {
+    private fun setFooter(context: Context, holder: MainViewHolder, footerData: FooterDTO?){
+        footerData.run {
             if(null == this){ holder.inFooter.visibility = View.GONE }
             else{
                 holder.inFooter.visibility =  View.VISIBLE
@@ -36,9 +53,40 @@ object MainHolderManager {
                 }
 
             }
+        }
+    }
+
+    private fun setContents(context: Context, holder: MainViewHolder, contentsData: ContentsDTO?){
+        if(null == contentsData) holder.rvContents.visibility = View.GONE
+        else{
+            holder.rvContents.visibility = View.VISIBLE
+            if(!contentsData.type.isNullOrBlank()){
+                holder.rvContents.run {
+                    when(contentsData.type){
+                        TYPE_GRID -> {
+                            layoutManager = GridLayoutManager(context, 3)
+                            adapter = GoodsAdapter(context).apply { setData(contentsData.goods) }
+                        }
+                        TYPE_SCROLL ->{
+                            layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
+                            adapter = GoodsAdapter(context).apply { setData(contentsData.goods) }
+                        }
+                        TYPE_BANNER -> {
+                            layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
+                            adapter = BannerAdapter(context).apply { setData(contentsData.banners) }
+                        }
+                        TYPE_STYLE -> {
+                            layoutManager = GridLayoutManager(context, 2)
+                            adapter = StyleAdapter(context).apply { setData(contentsData.styles) }
+                        }
+                    }
+                }
+            }
+
 
         }
 
     }
+
 
 }

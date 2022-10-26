@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         //mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(R.layout.activity_main)
-
         ApiManager.requestListData(object : ApiManager.ResponseCallBack{
             override fun getResponse(data: DataListDTO?) {
                 mData = data
@@ -43,9 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initLayout(){
         rvMain.run {
-            this.layoutManager = LinearLayoutManager(this@MainActivity).apply {
-                this.orientation = LinearLayoutManager.VERTICAL
-            }
+            this.layoutManager = LinearLayoutManager(this@MainActivity).apply { this.orientation = LinearLayoutManager.VERTICAL }
             this.adapter = MainAdapter(this@MainActivity).apply { setData(mData?.dataList) }
         }
 /*        mBinding?.rvMain?.run {

@@ -33,7 +33,7 @@ class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(holder is MainViewHolder && 0 < position && position < mData.size){
+        if(holder is MainViewHolder && 0 <= position && position < mData.size){
             MainHolderManager.setHolderData(mContext, holder, mData[position])
         }
     }
