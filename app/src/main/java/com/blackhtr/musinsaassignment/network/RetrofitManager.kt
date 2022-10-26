@@ -1,0 +1,14 @@
+package com.blackhtr.musinsaassignment.network
+
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+class RetrofitManager {
+    companion object{
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://meta.musinsa.com/interview/list.json")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+}
