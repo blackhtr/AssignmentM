@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:background="@drawable/shape_gray_r30"
+        android:background="@drawable/shape_gray_r60"
         android:layout_marginTop="5dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"

@@ -2,35 +2,49 @@ package com.blackhtr.musinsaassignment.layout
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.Glide.GlideApp
 import com.blackhtr.musinsaassignment.R
+import com.blackhtr.musinsaassignment.Utils
 import com.blackhtr.musinsaassignment.data.BannerDTO
-import com.blackhtr.musinsaassignment.data.DataDTO
 import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class BannerAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
+class BannerAdapter(context:Context, recyclerView: RecyclerView): RecyclerView.Adapter<ViewHolder>() {
     private val mContext = context
     private var mData:MutableList<BannerDTO> = mutableListOf()
+    private val mRecyclerView = recyclerView
+    private val mSnapHelper = LinearSnapHelper()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data : List<BannerDTO>?){
         mData.clear()
         data?.run { mData.addAll(this) }
+        mSnapHelper.attachToRecyclerView(null)
+        mSnapHelper.attachToRecyclerView(mRecyclerView)
+
         notifyDataSetChanged()
     }
     override fun getItemCount(): Int = mData.size
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent).apply { setClickListener(this) }
     private fun setClickListener(holder:BannerViewHolder){
-
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
+            if(RecyclerView.NO_POSITION != position && position < mData.size){
+                mContext.startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(mData[position].linkURL)
+                })
+            }
+        }
     }
 
 
@@ -38,10 +52,31 @@ class BannerAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
         if(holder is BannerViewHolder && 0 <= position && position < mData.size){
             val bannerData = mData[position]
             if(!bannerData.thumbnailURL.isNullOrBlank()) GlideApp.with(mContext).load(bannerData.thumbnailURL).into(holder.ivBanner)
+            holder.tvBannerKeyword.text = bannerData.keyword?:""
+            holder.tvBannerTitle.text = bannerData.title?:""
+            holder.tvBannerDescription.text = bannerData.description?:""
+            val bannerCnt:String = "${position+1} / ${mData.size}"
+            holder.tvBannerCount.text = bannerCnt
         }
     }
 }
 
 class BannerViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_banner_holder, parent, false)){
     val ivBanner:ImageView = itemView.findViewById(R.id.ivBanner)
+    val tvBannerKeyword:TextView = itemView.findViewById(R.id.tvBannerKeyword)
+    val tvBannerTitle:TextView = itemView.findViewById(R.id.tvBannerTitle)
+    val tvBannerDescription:TextView = itemView.findViewById(R.id.tvBannerDescription)
+    val tvBannerCount:TextView = itemView.findViewById(R.id.tvBannerCount)
+
+    init {
+        val displayWidth:Int = Utils.getDeviceWidthPixel(parent.context)
+
+        itemView.layoutParams = itemView.layoutParams.apply {
+            width = displayWidth
+            height = displayWidth
+        }
+        tvBannerTitle.layoutParams = tvBannerTitle.layoutParams.apply {
+            width = (displayWidth/3)*2
+        }
+    }
 }

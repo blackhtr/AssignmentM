@@ -73,7 +73,7 @@ object MainHolderManager {
                         }
                         TYPE_BANNER -> {
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
-                            adapter = BannerAdapter(context).apply { setData(contentsData.banners) }
+                            adapter = BannerAdapter(context, holder.rvContents).apply { setData(contentsData.banners) }
                         }
                         TYPE_STYLE -> {
                             layoutManager = GridLayoutManager(context, 2)
