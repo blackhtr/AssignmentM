@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.R
 import com.blackhtr.musinsaassignment.data.DataDTO
 import com.blackhtr.musinsaassignment.data.FooterDTO
-import kotlinx.android.synthetic.main.item_footer.view.*
-import kotlinx.android.synthetic.main.item_header.view.*
-import kotlinx.android.synthetic.main.item_main_holder.view.*
 
 class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
     private val mContext = context
@@ -68,14 +65,14 @@ class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
 
 class MainViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_main_holder, parent, false)){
     // HEADER
-    val inHeader: View = itemView.inHeader
-    val ivHeaderIcon:ImageView = itemView.inHeader.ivHeaderIcon
-    val tvHeaderTitle:TextView = itemView.inHeader.tvHeaderTitle
-    val tvHeaderLink:TextView = itemView.inHeader.tvHeaderLink
+    val inHeader: View = itemView.findViewById(R.id.inHeader)
+    val ivHeaderIcon:ImageView = inHeader.findViewById(R.id.ivHeaderIcon)
+    val tvHeaderTitle:TextView = inHeader.findViewById(R.id.tvHeaderTitle)
+    val tvHeaderLink:TextView = inHeader.findViewById(R.id.tvHeaderLink)
     // CONTENTS
-    val rvContents:RecyclerView = itemView.rvContents
+    val rvContents:RecyclerView = itemView.findViewById(R.id.rvContents)
     // FOOTER
-    val inFooter: View = itemView.inFooter
-    val ivFooterIcon:ImageView = itemView.inFooter.ivFooterIcon
-    val tvFooterTitle:TextView = itemView.inFooter.tvFooterTitle
+    val inFooter: View = itemView.findViewById(R.id.inFooter)
+    val ivFooterIcon:ImageView = inFooter.findViewById(R.id.ivFooterIcon)
+    val tvFooterTitle:TextView = inFooter.findViewById(R.id.tvFooterTitle)
 }

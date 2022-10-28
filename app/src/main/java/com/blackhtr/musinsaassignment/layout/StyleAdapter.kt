@@ -12,9 +12,6 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.Glide.GlideApp
 import com.blackhtr.musinsaassignment.R
 import com.blackhtr.musinsaassignment.data.StyleDTO
-import kotlinx.android.synthetic.main.item_footer.view.*
-import kotlinx.android.synthetic.main.item_header.view.*
-import kotlinx.android.synthetic.main.item_main_holder.view.*
 
 class StyleAdapter(context:Context, type:String): BaseAdapter(context, type) {
     private val mContext = context
