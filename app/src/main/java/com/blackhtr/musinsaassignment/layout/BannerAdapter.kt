@@ -19,11 +19,13 @@ import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class BannerAdapter(context:Context, recyclerView: RecyclerView): RecyclerView.Adapter<ViewHolder>() {
+class BannerAdapter(context:Context, recyclerView: RecyclerView, type:String): BaseAdapter(context, type){
     private val mContext = context
     private var mData:MutableList<BannerDTO> = mutableListOf()
     private val mRecyclerView = recyclerView
     private val mSnapHelper = LinearSnapHelper()
+
+    override fun refreshData() {}
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data : List<BannerDTO>?){
@@ -35,7 +37,9 @@ class BannerAdapter(context:Context, recyclerView: RecyclerView): RecyclerView.A
         notifyDataSetChanged()
     }
     override fun getItemCount(): Int = mData.size
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent).apply { setClickListener(this) }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent, displayWidth).apply { setClickListener(this) }
     private fun setClickListener(holder:BannerViewHolder){
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition
@@ -61,7 +65,7 @@ class BannerAdapter(context:Context, recyclerView: RecyclerView): RecyclerView.A
     }
 }
 
-class BannerViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_banner_holder, parent, false)){
+class BannerViewHolder(parent: ViewGroup, widthDp:Int) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_banner_holder, parent, false)){
     val ivBanner:ImageView = itemView.findViewById(R.id.ivBanner)
     val tvBannerKeyword:TextView = itemView.findViewById(R.id.tvBannerKeyword)
     val tvBannerTitle:TextView = itemView.findViewById(R.id.tvBannerTitle)
@@ -69,14 +73,12 @@ class BannerViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(paren
     val tvBannerCount:TextView = itemView.findViewById(R.id.tvBannerCount)
 
     init {
-        val displayWidth:Int = Utils.getDeviceWidthPixel(parent.context)
-
         itemView.layoutParams = itemView.layoutParams.apply {
-            width = displayWidth
-            height = displayWidth
+            width = widthDp
+            height = widthDp
         }
         tvBannerTitle.layoutParams = tvBannerTitle.layoutParams.apply {
-            width = (displayWidth/3)*2
+            width = (widthDp/3)*2
         }
     }
 }

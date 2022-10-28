@@ -15,7 +15,10 @@ object MainHolderManager {
     const val TYPE_GRID     = "GRID"
     private const val TYPE_SCROLL   = "SCROLL"
     private const val TYPE_BANNER   = "BANNER"
-    private const val TYPE_STYLE    = "STYLE"
+    const val TYPE_STYLE    = "STYLE"
+
+    const val TYPE_FOOTER_MORE     = "MORE"
+    const val TYPE_FOOTER_REFRESH  = "REFRESH"
 
     fun setHolderData(context: Context, holder: MainViewHolder, data: DataDTO){
         setHeader(context, holder, data.header)
@@ -73,20 +76,15 @@ object MainHolderManager {
                         }
                         TYPE_BANNER -> {
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
-                            adapter = BannerAdapter(context, holder.rvContents).apply { setData(contentsData.banners) }
+                            adapter = BannerAdapter(context, holder.rvContents, contentsData.type).apply { setData(contentsData.banners) }
                         }
                         TYPE_STYLE -> {
                             layoutManager = GridLayoutManager(context, 2)
-                            adapter = StyleAdapter(context).apply { setData(contentsData.styles) }
+                            adapter = StyleAdapter(context, contentsData.type).apply { setData(contentsData.styles) }
                         }
                     }
                 }
             }
-
-
         }
-
     }
-
-
 }

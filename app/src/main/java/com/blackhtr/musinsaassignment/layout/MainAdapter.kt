@@ -2,6 +2,8 @@ package com.blackhtr.musinsaassignment.layout
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.R
 import com.blackhtr.musinsaassignment.data.DataDTO
+import com.blackhtr.musinsaassignment.data.FooterDTO
 import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
@@ -28,6 +31,27 @@ class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
     override fun getItemCount(): Int = mData.size
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = MainViewHolder(parent).apply { setClickListener(this) }
     private fun setClickListener(holder:MainViewHolder){
+        holder.tvHeaderLink.setOnClickListener {
+            val position = holder.adapterPosition
+            if(RecyclerView.NO_POSITION != position && position < mData.size){
+                val headerLinkUrl = mData[position].header?.linkURL?:""
+                if(headerLinkUrl.isNotBlank()) mContext.startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(headerLinkUrl) })
+            }
+        }
+        holder.inFooter.setOnClickListener {
+            val position = holder.adapterPosition
+            if(RecyclerView.NO_POSITION != position && position < mData.size){
+                val footerData:FooterDTO? = mData[position].footer
+                when(footerData?.type){
+                    MainHolderManager.TYPE_FOOTER_MORE -> {
+                        holder.rvContents.adapter?.run { if(this is BaseAdapter) this.moreData() }
+                    }
+                    MainHolderManager.TYPE_FOOTER_REFRESH -> {
+                        holder.rvContents.adapter?.run { if(this is BaseAdapter) this.refreshData() }
+                    }
+                }
+            }
+        }
 
     }
 

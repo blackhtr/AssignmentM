@@ -2,6 +2,8 @@ package com.blackhtr.musinsaassignment.layout
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -14,10 +16,11 @@ import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class StyleAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
+class StyleAdapter(context:Context, type:String): BaseAdapter(context, type) {
     private val mContext = context
     private var mData:MutableList<StyleDTO> = mutableListOf()
-    private var showLine:Int = 2
+
+    override fun refreshData() {}
 
     @SuppressLint("NotifyDataSetChanged")
     fun setData(data : List<StyleDTO>?){
@@ -25,10 +28,19 @@ class StyleAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
         data?.run { mData.addAll(this) }
         notifyDataSetChanged()
     }
-    override fun getItemCount(): Int = if(showLine*2 < mData.size) showLine*2 else mData.size
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = StyleViewHolder(parent).apply { setClickListener(this) }
-    private fun setClickListener(holder:StyleViewHolder){
 
+
+    override fun getItemCount(): Int = if(showLine*lineCount < mData.size) showLine*lineCount else mData.size
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = StyleViewHolder(parent, displayWidth/2).apply { setClickListener(this) }
+    private fun setClickListener(holder:StyleViewHolder){
+        holder.itemView.setOnClickListener {
+            val position = holder.adapterPosition
+            if(RecyclerView.NO_POSITION != position && position < mData.size){
+                mContext.startActivity(Intent(Intent.ACTION_VIEW).apply {
+                    data = Uri.parse(mData[position].linkURL)
+                })
+            }
+        }
     }
 
 
@@ -40,7 +52,13 @@ class StyleAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
     }
 }
 
-class StyleViewHolder(parent: ViewGroup) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_style_holder, parent, false)){
+class StyleViewHolder(parent: ViewGroup, widthDp:Int) : ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_style_holder, parent, false)){
     val ivStyle:ImageView = itemView.findViewById(R.id.ivStyle)
+    init {
+        itemView.layoutParams = itemView.layoutParams.apply {
+            width = widthDp
+            height = 3*(widthDp/2)
+        }
+    }
 
 }
