@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.Glide.GlideApp
@@ -22,7 +22,7 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
     private val mContext = context
     private var mData:MutableList<BannerDTO> = mutableListOf()
     private val mRecyclerView = recyclerView
-    private val mSnapHelper = LinearSnapHelper()
+    private val mSnapHelper = PagerSnapHelper()
 
     override fun refreshData() {}
 
