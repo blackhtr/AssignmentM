@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.blackhtr.musinsaassignment.Glide.GlideApp
 import com.blackhtr.musinsaassignment.R
-import com.blackhtr.musinsaassignment.Utils
 import com.blackhtr.musinsaassignment.data.BannerDTO
 import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
@@ -55,11 +54,11 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(holder is BannerViewHolder && 0 <= position && position < mData.size){
             val bannerData = mData[position]
-            if(!bannerData.thumbnailURL.isNullOrBlank()) GlideApp.with(mContext).load(bannerData.thumbnailURL).into(holder.ivBanner)
-            holder.tvBannerKeyword.text = bannerData.keyword?:""
-            holder.tvBannerTitle.text = bannerData.title?:""
-            holder.tvBannerDescription.text = bannerData.description?:""
-            val bannerCnt:String = "${position+1} / ${mData.size}"
+            if(bannerData.thumbnailURL.isNotBlank()) GlideApp.with(mContext).load(bannerData.thumbnailURL).into(holder.ivBanner)
+            holder.tvBannerKeyword.text = bannerData.keyword
+            holder.tvBannerTitle.text = bannerData.title
+            holder.tvBannerDescription.text = bannerData.description
+            val bannerCnt = "${position+1} / ${mData.size}"
             holder.tvBannerCount.text = bannerCnt
         }
     }

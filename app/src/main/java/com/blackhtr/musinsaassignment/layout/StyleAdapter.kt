@@ -47,7 +47,7 @@ class StyleAdapter(context:Context, type:String): BaseAdapter(context, type) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(holder is StyleViewHolder && 0 <= position && position < mData.size){
             val styleData = mData[position]
-            if(!styleData.thumbnailURL.isNullOrBlank()) GlideApp.with(mContext).load(styleData.thumbnailURL).into(holder.ivStyle)
+            if(styleData.thumbnailURL.isNotBlank()) GlideApp.with(mContext).load(styleData.thumbnailURL).into(holder.ivStyle)
         }
     }
 }
