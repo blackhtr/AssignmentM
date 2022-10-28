@@ -32,7 +32,8 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
         mSnapHelper.attachToRecyclerView(mRecyclerView)
         notifyDataSetChanged()
     }
-    override fun getItemCount(): Int = mData.size
+    override fun getItemCount(): Int = Int.MAX_VALUE
+    fun getRealItemCount():Int = mData.size
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent, itemWidth).apply { setClickListener(this) }
@@ -49,13 +50,14 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if(holder is BannerViewHolder && 0 <= position && position < mData.size){
-            val bannerData = mData[position]
+        if(holder is BannerViewHolder && 0 <= position && position < Int.MAX_VALUE){
+            val realPosition = position % mData.size
+            val bannerData = mData[realPosition]
             if(bannerData.thumbnailURL.isNotBlank()) GlideApp.with(mContext).load(bannerData.thumbnailURL).into(holder.ivBanner)
             holder.tvBannerKeyword.text = bannerData.keyword
             holder.tvBannerTitle.text = bannerData.title
             holder.tvBannerDescription.text = bannerData.description
-            val bannerCnt = "${position+1} / ${mData.size}"
+            val bannerCnt = "${realPosition+1} / ${mData.size}"
             holder.tvBannerCount.text = bannerCnt
         }
     }

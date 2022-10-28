@@ -86,6 +86,7 @@ object MainHolderManager {
                         TYPE_BANNER -> {
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
                             adapter = BannerAdapter(context, contentsData.type, holder.rvContents).apply { setData(contentsData.banners) }
+                            scrollToPosition(100 * (adapter as BannerAdapter).getRealItemCount())
                         }
                         TYPE_STYLE -> {
                             layoutManager = GridLayoutManager(context, 2)
