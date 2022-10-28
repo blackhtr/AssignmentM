@@ -72,11 +72,11 @@ object MainHolderManager {
                         }
                         TYPE_SCROLL ->{
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
-                            adapter = GoodsAdapter(context, contentsData.type).apply { setData(contentsData.goods) }
+                            adapter = GoodsAdapter(context, contentsData.type, holder.rvContents).apply { setData(contentsData.goods) }
                         }
                         TYPE_BANNER -> {
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
-                            adapter = BannerAdapter(context, holder.rvContents, contentsData.type).apply { setData(contentsData.banners) }
+                            adapter = BannerAdapter(context, contentsData.type, holder.rvContents).apply { setData(contentsData.banners) }
                         }
                         TYPE_STYLE -> {
                             layoutManager = GridLayoutManager(context, 2)

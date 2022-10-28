@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.item_footer.view.*
 import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
-class BannerAdapter(context:Context, recyclerView: RecyclerView, type:String): BaseAdapter(context, type){
+class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): BaseAdapter(context, type){
     private val mContext = context
     private var mData:MutableList<BannerDTO> = mutableListOf()
     private val mRecyclerView = recyclerView

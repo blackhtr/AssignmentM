@@ -17,13 +17,19 @@ import kotlinx.android.synthetic.main.item_header.view.*
 import kotlinx.android.synthetic.main.item_main_holder.view.*
 
 class GoodsAdapter(context:Context, type:String): BaseAdapter(context, type) {
+    constructor(context:Context, type:String, recyclerView: RecyclerView) : this(context, type){ mRecyclerView = recyclerView }
+
     private val mContext = context
     private var mData:MutableList<GoodsDTO> = mutableListOf()
+    private var mRecyclerView:RecyclerView? = null
 
     @SuppressLint("NotifyDataSetChanged")
     override fun refreshData() {
-        mData.shuffle()
-        notifyDataSetChanged()
+        if(0 < mData.size){
+            mRecyclerView?.scrollToPosition(0)
+            mData.shuffle()
+            notifyDataSetChanged()
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
