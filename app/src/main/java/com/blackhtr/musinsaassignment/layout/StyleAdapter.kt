@@ -32,7 +32,7 @@ class StyleAdapter(context:Context, type:String): BaseAdapter(context, type) {
 
 
     override fun getItemCount(): Int = if(showLine*lineCount < mData.size) showLine*lineCount else mData.size
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = StyleViewHolder(parent, displayWidth/2).apply { setClickListener(this) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = StyleViewHolder(parent, itemWidth).apply { setClickListener(this) }
     private fun setClickListener(holder:StyleViewHolder){
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition

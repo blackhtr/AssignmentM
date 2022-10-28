@@ -38,7 +38,7 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
     override fun getItemCount(): Int = mData.size
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent, displayWidth).apply { setClickListener(this) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent, itemWidth).apply { setClickListener(this) }
     private fun setClickListener(holder:BannerViewHolder){
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition

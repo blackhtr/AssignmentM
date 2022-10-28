@@ -1,11 +1,12 @@
 package com.blackhtr.musinsaassignment.layout
 
 import android.content.Context
-import android.util.Log
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blackhtr.musinsaassignment.Glide.GlideApp
+import com.blackhtr.musinsaassignment.Utils
 import com.blackhtr.musinsaassignment.data.ContentsDTO
 import com.blackhtr.musinsaassignment.data.DataDTO
 import com.blackhtr.musinsaassignment.data.FooterDTO
@@ -13,8 +14,8 @@ import com.blackhtr.musinsaassignment.data.HeaderDTO
 
 object MainHolderManager {
     const val TYPE_GRID     = "GRID"
-    private const val TYPE_SCROLL   = "SCROLL"
-    private const val TYPE_BANNER   = "BANNER"
+    const val TYPE_SCROLL   = "SCROLL"
+    const val TYPE_BANNER   = "BANNER"
     const val TYPE_STYLE    = "STYLE"
 
     const val TYPE_FOOTER_MORE     = "MORE"
@@ -68,10 +69,18 @@ object MainHolderManager {
                     when(contentsData.type){
                         TYPE_GRID -> {
                             layoutManager = GridLayoutManager(context, 3)
+                            if(0 == this.itemDecorationCount) this.addItemDecoration(GridDecoration(context, CustomDecoration.DECORATION_SPACE, CustomDecoration.DECORATION_MARGIN))
+                            this.layoutParams = this.layoutParams.apply {
+                                if(this is MarginLayoutParams){
+                                    marginStart = Utils.convertToPixel(context, CustomDecoration.DECORATION_MARGIN)
+                                    marginEnd = Utils.convertToPixel(context, CustomDecoration.DECORATION_MARGIN)
+                                }
+                            }
                             adapter = GoodsAdapter(context, contentsData.type).apply { setData(contentsData.goods) }
                         }
                         TYPE_SCROLL ->{
                             layoutManager = LinearLayoutManager(context).apply { this.orientation = LinearLayoutManager.HORIZONTAL }
+                            if(0 == this.itemDecorationCount) this.addItemDecoration(LinearDecoration(context))
                             adapter = GoodsAdapter(context, contentsData.type, holder.rvContents).apply { setData(contentsData.goods) }
                         }
                         TYPE_BANNER -> {
@@ -80,6 +89,13 @@ object MainHolderManager {
                         }
                         TYPE_STYLE -> {
                             layoutManager = GridLayoutManager(context, 2)
+                            if(0 == this.itemDecorationCount) this.addItemDecoration(GridDecoration(context, CustomDecoration.DECORATION_SPACE, CustomDecoration.DECORATION_SPACE))
+                            this.layoutParams = this.layoutParams.apply {
+                                if(this is MarginLayoutParams){
+                                    marginStart = Utils.convertToPixel(context, CustomDecoration.DECORATION_MARGIN)
+                                    marginEnd = Utils.convertToPixel(context, CustomDecoration.DECORATION_MARGIN)
+                                }
+                            }
                             adapter = StyleAdapter(context, contentsData.type).apply { setData(contentsData.styles) }
                         }
                     }

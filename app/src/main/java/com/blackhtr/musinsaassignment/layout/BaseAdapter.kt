@@ -12,9 +12,15 @@ abstract class BaseAdapter(context: Context, type:String): RecyclerView.Adapter<
     var lineCount:Int = when(type){
         MainHolderManager.TYPE_GRID -> 3
         MainHolderManager.TYPE_STYLE -> 2
-        else -> 0
+        else -> 1
     }
-    val displayWidth:Int = Utils.getDeviceWidthPixel(context)
+    private val displayWidth:Int = getDeviceWidthPixel(context)
+    val itemWidth:Int = when(type){
+        MainHolderManager.TYPE_GRID, MainHolderManager.TYPE_STYLE -> getItemWidth(context, lineCount)
+        MainHolderManager.TYPE_SCROLL -> displayWidth/3
+        //MainHolderManager.TYPE_BANNER,
+        else -> displayWidth
+    }
 
     abstract fun refreshData()
 
@@ -22,5 +28,16 @@ abstract class BaseAdapter(context: Context, type:String): RecyclerView.Adapter<
     fun moreData(){
         showLine++
         notifyDataSetChanged()
+    }
+
+    private fun getItemWidth(context: Context, itemCnt:Int):Int{
+        val pxMargin = Utils.convertToPixel(context, CustomDecoration.DECORATION_MARGIN)
+        val pxSpace = Utils.convertToPixel(context, CustomDecoration.DECORATION_SPACE)
+        return (displayWidth - (pxMargin * 2) - (pxSpace * (itemCnt-1))) / itemCnt
+    }
+
+    private fun getDeviceWidthPixel(context:Context):Int{
+        val metrics = context.resources.displayMetrics
+        return metrics.widthPixels
     }
 }

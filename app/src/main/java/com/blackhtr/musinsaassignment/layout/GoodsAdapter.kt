@@ -46,7 +46,7 @@ class GoodsAdapter(context:Context, type:String): BaseAdapter(context, type) {
         MainHolderManager.TYPE_GRID -> if(showLine*lineCount < mData.size) showLine*lineCount else mData.size
         else -> mData.size
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = GoodsViewHolder(parent, displayWidth/3).apply { setClickListener(this) }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = GoodsViewHolder(parent, itemWidth).apply { setClickListener(this) }
     private fun setClickListener(holder:GoodsViewHolder){
         holder.itemView.setOnClickListener {
             val position = holder.adapterPosition
