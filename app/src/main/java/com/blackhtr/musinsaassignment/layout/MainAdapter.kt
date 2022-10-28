@@ -44,7 +44,10 @@ class MainAdapter(context:Context): RecyclerView.Adapter<ViewHolder>() {
                 val footerData:FooterDTO? = mData[position].footer
                 when(footerData?.type){
                     MainHolderManager.TYPE_FOOTER_MORE -> {
-                        holder.rvContents.adapter?.run { if(this is BaseAdapter) this.moreData() }
+                        holder.rvContents.adapter?.run { if(this is BaseAdapter){
+                            moreData()
+                            if(totalCount == itemCount) holder.inFooter.visibility = View.GONE
+                        }}
                     }
                     MainHolderManager.TYPE_FOOTER_REFRESH -> {
                         holder.rvContents.adapter?.run { if(this is BaseAdapter) this.refreshData() }

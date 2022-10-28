@@ -30,9 +30,9 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
     fun setData(data : List<BannerDTO>?){
         mData.clear()
         data?.run { mData.addAll(this) }
+        totalCount = mData.size
         mSnapHelper.attachToRecyclerView(null)
         mSnapHelper.attachToRecyclerView(mRecyclerView)
-
         notifyDataSetChanged()
     }
     override fun getItemCount(): Int = mData.size

@@ -39,6 +39,7 @@ class GoodsAdapter(context:Context, type:String): BaseAdapter(context, type) {
     fun setData(data : List<GoodsDTO>?){
         mData.clear()
         data?.run { mData.addAll(this) }
+        totalCount = mData.size
         notifyDataSetChanged()
     }
     override fun getItemCount(): Int = when(contentsType){

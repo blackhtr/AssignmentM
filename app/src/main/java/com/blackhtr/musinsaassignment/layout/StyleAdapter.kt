@@ -26,6 +26,7 @@ class StyleAdapter(context:Context, type:String): BaseAdapter(context, type) {
     fun setData(data : List<StyleDTO>?){
         mData.clear()
         data?.run { mData.addAll(this) }
+        totalCount = mData.size
         notifyDataSetChanged()
     }
 

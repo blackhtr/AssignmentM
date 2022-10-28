@@ -7,6 +7,7 @@ import com.blackhtr.musinsaassignment.Utils
 
 abstract class BaseAdapter(context: Context, type:String): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val contentsType = type
+    var totalCount:Int = 0
     var showLine = 2
     var lineCount:Int = when(type){
         MainHolderManager.TYPE_GRID -> 3
