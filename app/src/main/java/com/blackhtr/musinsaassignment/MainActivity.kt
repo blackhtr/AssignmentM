@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         mBinding = null
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
+    }
+
     private fun initLayout(dataList:DataListDTO?){
         mBinding?.rvMain?.run {
             this.layoutManager = LinearLayoutManager(this@MainActivity).apply { this.orientation = LinearLayoutManager.VERTICAL }
