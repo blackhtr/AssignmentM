@@ -15,7 +15,7 @@ import com.blackhtr.musinsaassignment.data.HeaderDTO
 object MainHolderManager {
     const val TYPE_GRID     = "GRID"
     const val TYPE_SCROLL   = "SCROLL"
-    const val TYPE_BANNER   = "BANNER"
+    private const val TYPE_BANNER   = "BANNER"
     const val TYPE_STYLE    = "STYLE"
 
     const val TYPE_FOOTER_MORE     = "MORE"
@@ -53,7 +53,7 @@ object MainHolderManager {
                 holder.tvFooterTitle.text = title
                 this.iconURL.let {
                     holder.ivFooterIcon.visibility = if(it.isBlank()) View.GONE else View.VISIBLE
-                    if(!it.isBlank()) GlideApp.with(context).load(it).into(holder.ivFooterIcon)
+                    if(it.isNotBlank()) GlideApp.with(context).load(it).into(holder.ivFooterIcon)
                 }
 
             }

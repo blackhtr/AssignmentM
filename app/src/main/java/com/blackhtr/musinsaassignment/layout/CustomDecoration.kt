@@ -26,7 +26,6 @@ class LinearDecoration(context: Context) : RecyclerView.ItemDecoration(){
 class GridDecoration(context: Context, space:Int, topBottom:Int) : RecyclerView.ItemDecoration(){
     private val pixelTopBtm:Int = Utils.convertToPixel(context, topBottom)
     private val pixelSpace:Int = Utils.convertToPixel(context, space)
-    //private val endLine = spanCount-1
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.left = pixelSpace/2
