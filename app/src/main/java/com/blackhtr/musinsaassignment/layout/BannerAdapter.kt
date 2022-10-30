@@ -39,10 +39,10 @@ class BannerAdapter(context:Context, type:String, recyclerView: RecyclerView): B
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder  = BannerViewHolder(parent, itemWidth).apply { setClickListener(this) }
     private fun setClickListener(holder:BannerViewHolder){
         holder.itemView.setOnClickListener {
-            val position = holder.adapterPosition
-            if(RecyclerView.NO_POSITION != position && position < mData.size){
+            val realPosition =  holder.adapterPosition % mData.size
+            if(RecyclerView.NO_POSITION != realPosition && realPosition < mData.size){
                 mContext.startActivity(Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(mData[position].linkURL)
+                    data = Uri.parse(mData[realPosition].linkURL)
                 })
             }
         }
